@@ -1,0 +1,19 @@
+const service = require('../services/auth.service');
+
+exports.register = async (req, res) => {
+  try {
+    const user = await service.register(req.body);
+    res.status(201).json({ message: 'User registered successfully', user });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+    const { token, user } = await service.login(req.body);
+    res.json({ message: 'Login successful', token, user });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
